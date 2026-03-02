@@ -30,16 +30,10 @@ else
 fi
 bashio::log.info "dump1090 html files: $(find /usr/share -name 'gmap.html' 2>/dev/null)"
 cat > /tmp/lighttpd.conf << 'EOF'
-server.document-root = "/usr/share/dump1090-mutability/html"
+server.document-root = "/tmp/dump1090-json"
 server.port = 8080
 server.bind = "0.0.0.0"
-alias.url += ( "/data/" => "/tmp/dump1090-json/" )
-mimetype.assign = (
-  ".html" => "text/html",
-  ".js"   => "application/javascript",
-  ".css"  => "text/css",
-  ".json" => "application/json"
-)
+mimetype.assign = ( ".json" => "application/json" )
 EOF
 
 lighttpd -f /tmp/lighttpd.conf
