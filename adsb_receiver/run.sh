@@ -20,7 +20,6 @@ exec dump1090-mutability \
     --lon "${LON}" \
     ${GAIN_ARG} \
     --net \
-    --net-http-port 8080 \
     --write-json /tmp/dump1090-json \
     --write-json-every 1 \
     --quiet
