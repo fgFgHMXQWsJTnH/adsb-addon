@@ -8,9 +8,8 @@ GAIN=$(bashio::config 'gain')
 
 bashio::log.info "Looking for RTL-SDR device with serial: ${SERIAL}"
 
-# Find the device index for our serial number
-DEVICE_INDEX=$(rtl_test 2>&1 | grep -n "${SERIAL}" | head -1 | awk -F: '{print $1}')
-DEVICE_INDEX=$((DEVICE_INDEX - 1))
+# Use dump1090's own device listing to find the index
+DEVICE_INDEX=$(dump1090-mutability --device-index 99 2>&1 | grep "SN: ${SERIAL}" | awk '{print $1}' | tr -d ':')
 
 if [ -z "${DEVICE_INDEX}" ]; then
     bashio::log.error "Could not find device with serial ${SERIAL}"
