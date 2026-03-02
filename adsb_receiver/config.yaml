@@ -1,5 +1,5 @@
 name: "ADSB Receiver"
-version: "1.0.3"
+version: "1.0.5"
 slug: "adsb_receiver"
 description: "ADS-B receiver using dump1090"
 url: "https://github.com/fgFgHMXQWsJTnH/adsb-addon"
