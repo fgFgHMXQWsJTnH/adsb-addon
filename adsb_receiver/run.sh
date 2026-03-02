@@ -1,5 +1,4 @@
 #!/usr/bin/with-contenv bashio
-set -e
 
 SERIAL=$(bashio::config 'serial')
 LAT=$(bashio::config 'lat')
@@ -8,8 +7,14 @@ GAIN=$(bashio::config 'gain')
 
 bashio::log.info "Looking for RTL-SDR device with serial: ${SERIAL}"
 
-# Use dump1090's own device listing to find the index
-DEVICE_INDEX=$(dump1090-mutability --device-index 99 2>&1 | grep "SN: ${SERIAL}" | awk '{print $1}' | tr -d ':')
+# Disable exit-on-error while we run the device probe
+set +e
+DUMP_OUTPUT=$(dump1090-mutability --device-index 99 2>&1)
+set -e
+
+bashio::log.info "Device probe output: ${DUMP_OUTPUT}"
+
+DEVICE_INDEX=$(echo "${DUMP_OUTPUT}" | grep "SN: ${SERIAL}" | awk '{print $1}' | tr -d ':')
 
 if [ -z "${DEVICE_INDEX}" ]; then
     bashio::log.error "Could not find device with serial ${SERIAL}"
