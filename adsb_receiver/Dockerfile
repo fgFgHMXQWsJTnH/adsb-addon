@@ -9,4 +9,4 @@ RUN chmod +x /usr/local/bin/dump1090-mutability
 
 # Copy s6 service
 COPY rootfs /
-RUN chmod a+x /etc/s6-overlay/s6-rc.d/adsb/run
+RUN chmod a+x /etc/services.d/adsb/run
