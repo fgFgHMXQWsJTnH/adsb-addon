@@ -1,0 +1,30 @@
+name: "ADSB Receiver"
+version: "1.0.0"
+slug: "adsb_receiver"
+description: "ADS-B receiver using dump1090"
+url: "https://github.com/fgFgHMXQWsJTnH/adsb-addon"
+arch:
+  - amd64
+startup: application
+boot: auto
+init: false
+options:
+  serial: "00000002"
+  lat: 51.5
+  lon: -0.1
+  gain: "auto"
+schema:
+  serial: str
+  lat: float
+  lon: float
+  gain: str
+ports:
+  "8080/tcp": 8080
+devices:
+  - /dev/bus/usb
+privileged:
+  - SYS_RAWIO
+ingress: true
+ingress_port: 8080
+panel_icon: "mdi:airplane"
+panel_title: "ADSB Map"
