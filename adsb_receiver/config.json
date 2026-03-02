@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "slug": "adsb_receiver",
   "description": "ADS-B receiver using dump1090-fa, targeted at a specific RTL-SDR serial number",
-  "url": "https://github.com/YOUR_GITHUB_USERNAME/adsb-addon",
+  "url": "https://github.com/fgFgHMXQWsJTnH/adsb-addon",
   "arch": ["amd64"],
   "startup": "application",
   "boot": "auto",
