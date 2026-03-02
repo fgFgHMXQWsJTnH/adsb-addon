@@ -1,5 +1,5 @@
 name: "ADSB Receiver"
-version: "1.0.1"
+version: "1.0.2"
 slug: "adsb_receiver"
 description: "ADS-B receiver using dump1090"
 url: "https://github.com/fgFgHMXQWsJTnH/adsb-addon"
@@ -8,6 +8,8 @@ arch:
 startup: application
 boot: auto
 init: false
+usb: true
+udev: true
 options:
   serial: "00000002"
   lat: 51.5
@@ -20,11 +22,6 @@ schema:
   gain: str
 ports:
   "8080/tcp": 8080
-devices:
-  - /dev/bus/usb
-privileged:
-  - SYS_RAWIO
-  - SYS_ADMIN
 ingress: true
 ingress_port: 8080
 panel_icon: "mdi:airplane"
