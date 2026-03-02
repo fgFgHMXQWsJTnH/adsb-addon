@@ -1,0 +1,26 @@
+#!/command/with-contenv bashio
+set -e
+
+SERIAL=$(bashio::config 'serial')
+LAT=$(bashio::config 'lat')
+LON=$(bashio::config 'lon')
+GAIN=$(bashio::config 'gain')
+
+bashio::log.info "Starting dump1090 on serial: ${SERIAL}"
+
+if [ "${GAIN}" = "auto" ]; then
+    GAIN_ARG="--gain -10"
+else
+    GAIN_ARG="--gain ${GAIN}"
+fi
+
+exec dump1090-mutability \
+    --device-index ":${SERIAL}" \
+    --lat "${LAT}" \
+    --lon "${LON}" \
+    ${GAIN_ARG} \
+    --net \
+    --net-http-port 8080 \
+    --write-json /tmp/dump1090-json \
+    --write-json-every 1 \
+    --quiet
