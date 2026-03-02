@@ -3,10 +3,10 @@ FROM $BUILD_FROM
 
 RUN apk add --no-cache bash libusb rtl-sdr
 
-# Copy pre-built binary - no internet needed at build time
 COPY bin/dump1090-mutability /usr/local/bin/dump1090-mutability
 RUN chmod +x /usr/local/bin/dump1090-mutability
 
-# Copy s6 service
-COPY rootfs /
-RUN chmod a+x /etc/services.d/adsb/run
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+CMD ["/run.sh"]
