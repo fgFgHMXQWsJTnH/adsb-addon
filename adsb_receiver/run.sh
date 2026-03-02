@@ -28,7 +28,7 @@ if [ "${GAIN}" = "auto" ]; then
 else
     GAIN_ARG="--gain ${GAIN}"
 fi
-
+bashio::log.info "dump1090 html files: $(find /usr/share -name 'gmap.html' 2>/dev/null)"
 cat > /tmp/lighttpd.conf << 'EOF'
 server.document-root = "/usr/share/dump1090-mutability/html"
 server.port = 8080
