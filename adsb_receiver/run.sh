@@ -7,7 +7,6 @@ GAIN=$(bashio::config 'gain')
 
 bashio::log.info "Looking for RTL-SDR device with serial: ${SERIAL}"
 
-# Disable exit-on-error while we run the device probe
 set +e
 DUMP_OUTPUT=$(dump1090-mutability --device-index 99 2>&1)
 set -e
@@ -28,15 +27,19 @@ if [ "${GAIN}" = "auto" ]; then
 else
     GAIN_ARG="--gain ${GAIN}"
 fi
-# Create JSON output directory before lighttpd starts (fixes 404)
+
 mkdir -p /tmp/dump1090-json
+
+# Stamp lat/lon from addon options into map.html at runtime
+sed "s/HOME_LAT_PLACEHOLDER/${LAT}/; s/HOME_LON_PLACEHOLDER/${LON}/" /map.html > /tmp/dump1090-json/map.html
+bashio::log.info "map.html deployed with lat=${LAT} lon=${LON}"
 
 cat > /tmp/lighttpd.conf << 'EOF'
 server.modules += ( "mod_dirlisting" )
 server.document-root = "/tmp/dump1090-json"
 server.port = 8080
 server.bind = "0.0.0.0"
-mimetype.assign = ( ".json" => "application/json" )
+mimetype.assign = ( ".json" => "application/json", ".html" => "text/html" )
 dir-listing.activate = "enable"
 EOF
 
