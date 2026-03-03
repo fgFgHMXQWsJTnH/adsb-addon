@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY bin/dump1090-mutability /usr/local/bin/dump1090-mutability
 RUN chmod +x /usr/local/bin/dump1090-mutability
 
+COPY map.html /map.html
 COPY run.sh /
 RUN chmod a+x /run.sh
 
