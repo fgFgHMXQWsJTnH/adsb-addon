@@ -22,6 +22,7 @@ schema:
   gain: str
 ports:
   "8080/tcp": 8080
+  "30005/tcp": 30005
 ingress: true
 ingress_port: 8080
 panel_icon: "mdi:airplane"
